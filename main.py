@@ -1,4 +1,4 @@
-#!/usr/bin/env python3.8
+#!/usr/bin/env python3.8.9
 from fastapi import FastAPI
 app = FastAPI()
 
