@@ -1,0 +1,4 @@
+uvcorn
+pyautogen
+fastapi
+openai
