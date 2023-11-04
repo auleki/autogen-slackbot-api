@@ -3,6 +3,7 @@
 build/
 develop-eggs/
 dist/
+dump.py
 downloads/
 eggs/
 .eggs/

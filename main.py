@@ -1,6 +1,7 @@
 from autogen_test import talk_to_autogen
 from fastapi import FastAPI
 from pydantic import BaseModel
+import json
 
 app = FastAPI()
 
@@ -15,7 +16,7 @@ async def home():
 
 # endpoint to receive messages from discord bot and trigger ai response
 @app.post("/discord-message")
-async def receive_msg(data: DiscordMessage):
-    response = await talk_to_autogen(data.message)
+async def receive_msg(request: DiscordMessage):
+    response = talk_to_autogen(request.message)
     msg = response
-    return { "AI Answer IS: " + msg }
+    return msg

@@ -19,30 +19,16 @@ user_proxy = autogen.UserProxyAgent(
     is_termination_msg=lambda x: x.get("content", "").rstrip().endswith("TERMINATE")
 )
 
-async def talk_to_autogen(task):
+def talk_to_autogen(task):
     #to initiate conversation with user
-    await user_proxy.initiate_chat(assistant, message=task)
-    return handleChatMessages(user_proxy.chat_messages)
+    user_proxy.initiate_chat(assistant, message=task)
+    chat_messages = handleChatMessages(user_proxy.chat_messages)
+    return chat_messages
 
 # to parse messages and make them more readable
 def handleChatMessages(messages):
-    print("all-messages")
-    #formatted_data = json.dumps(messages, indent=4)
-    # value_of_msgs = messages.values()
-    # print(value_of_msgs)
     all_msgs = [item for sublist in messages.values() for item in sublist]
-    print(all_msgs)
     return all_msgs
-    # for item in all_msgs:
-    #     print(item)
-    # for msg in messages:
-    #     for key, values in msg.items():
-    #         print(f"{key}")
-    #         for value in values:
-    #             print(f"   {value['role']}: {value['content']}")
-
-task = "What is the best time to plant apples?"
-#talk_to_autogen(task)
 
 #to enable logging
 autogen.ChatCompletion.start_logging()
