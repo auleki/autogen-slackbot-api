@@ -1,13 +1,21 @@
-#!/usr/bin/env python3.8.9
+from autogen_test import talk_to_autogen
 from fastapi import FastAPI
+from pydantic import BaseModel
+
 app = FastAPI()
+
+# a representation of a Discord Message
+class DiscordMessage(BaseModel):
+    message: str
 
 @app.get("/")
 async def home():
     return {"Hi Cold World"}
 
+
+# endpoint to receive messages from discord bot and trigger ai response
 @app.post("/discord-message")
-async def receive_msg():
-    return { "Send Messgage to AI" }
-# add endpoint to receive messages from slack webhook
-# on receiving message from slack, feed that into AutoGen
+async def receive_msg(request: DiscordMessage):
+    #response = talk_to_autogen(message)
+    msg = request.message
+    return { "AI Give answer to: " + msg }
