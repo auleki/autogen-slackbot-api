@@ -19,10 +19,10 @@ user_proxy = autogen.UserProxyAgent(
     is_termination_msg=lambda x: x.get("content", "").rstrip().endswith("TERMINATE")
 )
 
-def talk_to_autogen(task):
+async def talk_to_autogen(task):
     #to initiate conversation with user
-    user_proxy.initiate_chat(assistant, message=task)
-    handleChatMessages(user_proxy.chat_messages)
+    await user_proxy.initiate_chat(assistant, message=task)
+    return handleChatMessages(user_proxy.chat_messages)
 
 # to parse messages and make them more readable
 def handleChatMessages(messages):
@@ -32,6 +32,7 @@ def handleChatMessages(messages):
     # print(value_of_msgs)
     all_msgs = [item for sublist in messages.values() for item in sublist]
     print(all_msgs)
+    return all_msgs
     # for item in all_msgs:
     #     print(item)
     # for msg in messages:

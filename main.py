@@ -15,7 +15,7 @@ async def home():
 
 # endpoint to receive messages from discord bot and trigger ai response
 @app.post("/discord-message")
-async def receive_msg(request: DiscordMessage):
-    #response = talk_to_autogen(message)
-    msg = request.message
-    return { "AI Give answer to: " + msg }
+async def receive_msg(data: DiscordMessage):
+    response = await talk_to_autogen(data.message)
+    msg = response
+    return { "AI Answer IS: " + msg }
